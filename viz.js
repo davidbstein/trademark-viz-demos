@@ -168,7 +168,7 @@ const _FIELD_LOOKUP_TABLES = {
     '045': 'Personal and legal',
   },
 }
-d3.json("trademark_data/demo_trademark_data.json").then(function(data) {
+d3.json("demo_trademark_data.json").then(function(data) {
 
   const _selectedCodes = new Set();
   let visibleImages = new Set();
