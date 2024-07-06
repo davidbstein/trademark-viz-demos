@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Trademark Visualization</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="control-panel">
+      <div>
+      <label>
+        Color by:
+        <select id="color-by">
+          <option value="first_use_anywhere_date">First Use Anywhere Date</option>
+          <option value="us_codes">US Code</option>
+          <option value="primary_code">Primary Code</option>
+          <option value="international_code">International Code</option>
+        </select>
+      </label>
+      </div><div>
+      <button id="toggle-images">Toggle Images</button>
+      </div><div>
+      <button id="layout-tsne">Layout: t-SNE</button>
+      <button id="layout-random">Layout: Generate Random Projection</button>
+      </div>
+      <div class="legend-container"></div>
+    </div>
+    <div class="scatterplot-container">
+      <svg id="visualization"></svg>
+    </div>
+  </div>
+  <script src="viz.js"></script>
+</body>
+</html>

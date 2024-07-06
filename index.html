@@ -1,125 +1,35 @@
-
-<!DOCTYPE html>
-<head>
-<meta charset="utf-8">
-<script src="https://d3js.org/d3.v6.js"></script>
-<script src="/recent_registrations_500_sample.js"></script>
+<html><head><title>trademark viz</title>
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 <style>
-  #chart {
-    border: 1px solid black;
-    width:min(80vw, 80vh, 960px);
-    height:min(80vw, 80vh, 960px);
-    transition: 1s ease-out;
-    padding: 1em;
-    background: #ccc;
-  }
-  #chart_content {
-    width:min(80vw, 80vh, 960px);
-    height:min(80vw, 80vh, 960px);
-    background: #ccc;
-  }
-
-</style>
-</head>
-<body >
-The following chart shows a sample of several hundred recently registered visual marks from the PTO database.
-<ul>
-    <li>
-        They are arranged so that marks with similar semantic content tend to appear near each-other, and marks with semantically distinct content will be more spaced out.
-    </li><li>
-        The underlying <a href="https://en.wikipedia.org/wiki/Latent_space">latent space</a> has ~50k dimentions. Proximity in this chart is a rough proxy for proximity in that space. More complex notions of similarity are possible.
-    </li><li>
-        Mousing over an image will show the full-size image and a text description. The text descriptions is computed exclusively from the image's position in the latent space, and uses no other information about the image. The text description is also limited to ~10 words. If I computed  a longer description it might be more accurate or detailed.
-    </li>
-</ul>
-
-<div id="chart" style="">
-  <div id="loading"> loading chart... </div>
-</div>
-
-<script>
-function load_chart(){
-  const [data, min_x, max_x, min_y, max_y] = get_dataset();
-
-  const
-    margin = {top: 10, right: 30, bottom: 30, left: 60},
-    width = Math.min(visualViewport.width, visualViewport.height, 1200) * .8,
-    height = Math.min(visualViewport.width, visualViewport.height, 1200) * .8;
-
-  const svg = d3.select("#chart")
-  .append("svg")
-    .attr("id", "chart_content")
-    .attr("width", width)
-    .attr("height", height)
-  .append("g")
-    .attr("transform",
-          `translate(${margin.left}, ${margin.top})`);
-
-  const x = d3.scaleLinear()
-    .domain([min_x, max_x])
-    .range([ 0, width ]);
-
-  const y = d3.scaleLinear()
-    .domain([min_y, max_y])
-    .range([ height, 0]);
-
-  const tooltip = d3.select("#chart")
-    .append("div")
-    .attr("class", "tooltip")
-    .style("background-color", "white")
-    .style("border", "solid")
-    .style("border-width", "1px")
-    .style("padding", "3px")
-    .style("position", "absolute")
-    .style("overflow", "hidden")
-    .style("width", "1px")
-    .style("height", "1px");
-
-  const mouseover = (event, d) => {
-    console.log("over", event.target);
-    tooltip.style("opacity", 1)
-  }
-
-  const mousemove = (event, d) => {
-    tooltip
-      .html(`<img src="data:image/png;base64,${d.img.full}" style="max-width:200px;max-height:200px"><div style="max-width:200px">${d.desc}</div>`)
-      .style("left", (event.x + 20) + "px")
-      .style("top", (event.y - 20) + "px");
-    tooltip
-      .transition()
-      .duration(20)
-      .style("width", "fit-content")
-      .style("height", "fit-content");
-  }
-  const mouseleave = (event, d) => {
-    tooltip
-      .transition()
-      .duration(20)
-      .style("opacity", 0)
-      .style("width", "1px")
-      .style("height", "1px");
-  }
-
-  const mouseclick = (event, d) => {
-    const url = `https://tsdr.uspto.gov/#caseNumber=${d.id}&caseSearchType=US_APPLICATION&caseType=DEFAULT&searchType=statusSearch`;
-    //window.open(url, '_blank').focus();
-  }
-
-  // Add dots
-  const previews = svg.append('g')
-    .selectAll()
-    .data(data)
-    .enter()
-      .append("svg:image")
-      .attr("href", (d) => `data:image/png;base64,${d.img.mini}`)
-      .attr('transform', (d)=>`translate(${x(d.x)}, ${y(d.y)})`)
-      .on("mouseover", mouseover )
-      .on("mousemove", mousemove )
-      .on("mouseleave", mouseleave )
-      .on("click", mouseclick );
+/* CSS */
+:root {
+  font-family: Inter, sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
 }
-load_chart();
-document.querySelector("#loading").innerText = "";
-</script>
-</body>
-</html>
+@supports (font-variation-settings: normal) {
+  :root { font-family: InterVariable, sans-serif; }
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  font-size: 2em;
+}
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+a:hover {
+  text-decoration: underline;
+}
+html {
+  background: #ddd;
+}
+  </style>
+  </head><bodystyle="width: 100vw; whitespace: pre-wrap; min-height: 100vh;"><div>Trademark Image Data Exploration / Demos</div><div><a href="original-demo.html">Original Demo</a></div>
+
+<div><a href="viz.html">Interactive visualization (random 0.1% sample of all registered visual marks since 1855).</a></div></body><style type="text/css"></style></html>
