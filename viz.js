@@ -175,7 +175,7 @@ d3.json("demo_trademark_data.json").then(function(data) {
   let maxVisibleImages = 0;
   let currentK = 1;
   let currentDots = 1;
-  const imageWidthFactor = 7;
+  const imageWidthFactor = 11;
   const dotRadius = 5;
   const buffer = .02;
 
@@ -497,7 +497,7 @@ d3.json("demo_trademark_data.json").then(function(data) {
       });
   }
 
-  function scale_fn(x, A=.5, B=10, k=.5) {
+  function scale_fn(x, A=.5, B=7, k=.5) {
     if (x === 1) {
       return 1;
     } else if (x < 1) {
