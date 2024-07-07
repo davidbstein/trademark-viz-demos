@@ -175,7 +175,7 @@ d3.json("demo_trademark_data.json").then(function(data) {
   let maxVisibleImages = 0;
   let currentK = 1;
   let currentDots = 1;
-  const imageWidthFactor = 11;
+  const imageWidthFactor = 7;
   const dotRadius = 5;
   const buffer = .02;
 
@@ -488,9 +488,9 @@ d3.json("demo_trademark_data.json").then(function(data) {
       .style("opacity", function(d) {
         if (hasHighlights) {
           if (colorBy.indexOf("date"))
-            return codes.some(year => Math.abs(parseInt(year) - parseInt(get_stylized_fields(d, colorBy))) < 5) ? 1 : 0.2;
+            return codes.some(year => Math.abs(parseInt(year) - parseInt(get_stylized_fields(d, colorBy))) < 5) ? 1 : 0.1;
           else
-            return codes.some(code => get_stylized_fields(d, colorBy).includes(code)) ? 1 : 0.2;
+            return codes.some(code => get_stylized_fields(d, colorBy).includes(code)) ? 1 : 0.1;
         } else {
           return 0.9;
         }
